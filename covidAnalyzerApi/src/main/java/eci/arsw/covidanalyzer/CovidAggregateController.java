@@ -9,12 +9,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 public class CovidAggregateController {
@@ -106,10 +104,12 @@ public class CovidAggregateController {
     }
 
     @RequestMapping(value = "/covid/result/persona/{id}/{resultType}", method = RequestMethod.PUT)
-    public ResponseEntity savePersonaWithMultipleTests() {
-        //TODO
-//        covidAggregateService.getResults(ResultType.TRUE_POSITIVE);
-        return null;
+    public ResponseEntity<?> savePersonaWithMultipleTests(@PathVariable String id, @PathVariable String resultType) {
+        try {
+            covidAggregateService.upsertPersonWithMultipleTests(id, ResultType.valueOf(resultType.toUpperCase(Locale.ROOT)));
+            return new ResponseEntity<>("Se ha actualizado el registro exitosamente.", HttpStatus.ACCEPTED);
+        } catch (PersistenceException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
-
 }
