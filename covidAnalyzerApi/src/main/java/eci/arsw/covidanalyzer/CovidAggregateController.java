@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class CovidAggregateController {
     ICovidAggregateService covidAggregateService;
 
     @RequestMapping(value = "/covid/result/true-positive", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addTruePositiveResult(Result result) {
+    public ResponseEntity<?> addTruePositiveResult(@RequestBody Result result) {
         try {
             covidAggregateService.addResult(result, ResultType.TRUE_POSITIVE);
             return new ResponseEntity<>("Se ha agregado correctamente el registro.", HttpStatus.ACCEPTED);
@@ -33,7 +34,7 @@ public class CovidAggregateController {
     }
 
     @RequestMapping(value = "/covid/result/true-negative", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addTrueNegativeResult(Result result) {
+    public ResponseEntity<?> addTrueNegativeResult(@RequestBody Result result) {
         try {
             covidAggregateService.addResult(result, ResultType.TRUE_NEGATIVE);
             return new ResponseEntity<>("Se ha agregado correctamente el registro.", HttpStatus.ACCEPTED);
@@ -43,7 +44,7 @@ public class CovidAggregateController {
     }
 
     @RequestMapping(value = "/covid/result/false-positive", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addFalsePositiveResult(Result result) {
+    public ResponseEntity<?> addFalsePositiveResult(@RequestBody Result result) {
         try {
             covidAggregateService.addResult(result, ResultType.FALSE_POSITIVE);
             return new ResponseEntity<>("Se ha agregado correctamente el registro.", HttpStatus.ACCEPTED);
@@ -53,7 +54,7 @@ public class CovidAggregateController {
     }
 
     @RequestMapping(value = "/covid/result/false-negative", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addFalseNegativeResult(Result result) {
+    public ResponseEntity<?> addFalseNegativeResult(@RequestBody Result result) {
         try {
             covidAggregateService.addResult(result, ResultType.FALSE_NEGATIVE);
             return new ResponseEntity<>("Se ha agregado correctamente el registro.", HttpStatus.ACCEPTED);
