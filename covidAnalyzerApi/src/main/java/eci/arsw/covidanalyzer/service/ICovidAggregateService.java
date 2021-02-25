@@ -2,8 +2,9 @@ package eci.arsw.covidanalyzer.service;
 
 import eci.arsw.covidanalyzer.model.Result;
 import eci.arsw.covidanalyzer.model.ResultType;
+import eci.arsw.covidanalyzer.persistence.PersistenceException;
 
-import java.util.UUID;
+import java.util.List;
 
 public interface ICovidAggregateService {
 
@@ -14,7 +15,7 @@ public interface ICovidAggregateService {
      * @param type
      * @return
      */
-    boolean aggregateResult(Result result, ResultType type);
+    void addResult(Result result, ResultType type) throws PersistenceException;
 
     /**
      * Get all the results for the specified result type.
@@ -22,14 +23,14 @@ public interface ICovidAggregateService {
      * @param type
      * @return
      */
-    boolean getResult(ResultType type);
+    List<Result> getResults(ResultType type) throws PersistenceException;
 
     /**
      * 
      * @param id
      * @param type
      */
-    void upsertPersonWithMultipleTests(UUID id, ResultType type);
+    void upsertPersonWithMultipleTests(String id, ResultType type) throws PersistenceException;
 
-
+    String getJsonResults(List<Result> results) throws PersistenceException;
 }
