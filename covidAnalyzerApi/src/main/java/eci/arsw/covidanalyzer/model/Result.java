@@ -1,9 +1,7 @@
 package eci.arsw.covidanalyzer.model;
 
-import java.util.UUID;
-
 public class Result {
-    private UUID id;
+    private String id;
     private String firstName;
     private String lastName;
     private String gender;
@@ -14,11 +12,11 @@ public class Result {
     private ResultType resultType;
     private double testSpecifity;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
